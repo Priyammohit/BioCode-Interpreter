@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -29,10 +28,35 @@ def load_model_and_vectorizer():
 
 cv, classifier = load_model_and_vectorizer()
 
-# Show processed data if checkbox is selected
-if st.checkbox('Show processed human data'):
+# Protein types mapping
+protein_types = [
+    "G protein coupled receptors",
+    "Tyrosine kinase",
+    "Tyrosine phosphatase",
+    "Synthetase",
+    "Synthase",
+    "Ion channel",
+    "Transcription factor"
+]
+
+# Dropdown menu to select which processed data to view
+st.sidebar.subheader("View Processed Data")
+data_option = st.sidebar.selectbox(
+    "Select dataset to view:",
+    ["None", "Human Data", "Chimp Data", "Dog Data"]
+)
+
+if data_option == "Human Data":
     st.subheader("Processed Human Data")
     st.write(human_data.head())
+
+elif data_option == "Chimp Data":
+    st.subheader("Processed Chimp Data")
+    st.write(chimp_data.head())
+
+elif data_option == "Dog Data":
+    st.subheader("Processed Dog Data")
+    st.write(dog_data.head())
 
 # Train/Test split and model training option
 if st.checkbox('Retrain the Model'):
@@ -68,18 +92,28 @@ if st.button('Predict'):
         user_kmers = [' '.join([user_input[i:i+6] for i in range(len(user_input) - 6 + 1)])]
         user_vector = cv.transform(user_kmers)
         prediction = classifier.predict(user_vector)
-        st.write(f'Predicted class: **{prediction[0]}**')
+        
+        # Map prediction to protein type
+        predicted_protein_type = protein_types[prediction[0]]
+        
+        st.write(f'Predicted protein type: **{predicted_protein_type}**')
     else:
         st.error("DNA sequence must be at least 6 bases long.")
 
-# Optionally display chimp and dog data
-if st.checkbox('Show processed chimp data'):
-    st.subheader("Processed Chimp Data")
-    st.write(chimp_data.head())
-
-if st.checkbox('Show processed dog data'):
-    st.subheader("Processed Dog Data")
-    st.write(dog_data.head())
-
-# Footer
-st.write("Built with ❤️ using Streamlit")
+# Footer with custom styling
+st.markdown("""
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+    </style>
+    <div class="footer">
+        Built by Mohit Raj and Aman Kumar
+    </div>
+""", unsafe_allow_html=True)
