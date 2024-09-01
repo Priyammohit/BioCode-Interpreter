@@ -109,7 +109,6 @@ st.markdown("""
             width: 100%;
             text-align: center;
             font-size: 18px;
-            background-color: #f1f1f1;
             padding: 10px;
         }
     </style>
