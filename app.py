@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
+import re
 
 # Title of the app
 st.title("DNA Sequence Classification App")
@@ -85,20 +86,26 @@ if st.checkbox('Retrain the Model'):
 
 # Input DNA sequence for prediction
 st.subheader("Predict Gene Function from DNA Sequence")
+st.write("Sequence should be at least 6 bases long and only contain A, T, G, C.")
+
 user_input = st.text_area("Enter DNA sequence here:", height=150)
 
 if st.button('Predict'):
-    if len(user_input) >= 6:
-        user_kmers = [' '.join([user_input[i:i+6] for i in range(len(user_input) - 6 + 1)])]
-        user_vector = cv.transform(user_kmers)
-        prediction = classifier.predict(user_vector)
-        
-        # Map prediction to protein type
-        predicted_protein_type = protein_types[prediction[0]]
-        
-        st.write(f'Predicted protein type: **{predicted_protein_type}**')
+    # Check if the input contains only valid DNA bases
+    if re.fullmatch(r'[ATGC]*', user_input.upper()):
+        if len(user_input) >= 6:
+            user_kmers = [' '.join([user_input[i:i+6] for i in range(len(user_input) - 6 + 1)])]
+            user_vector = cv.transform(user_kmers)
+            prediction = classifier.predict(user_vector)
+            
+            # Map prediction to protein type
+            predicted_protein_type = protein_types[prediction[0]]
+            
+            st.write(f'Predicted protein type: **{predicted_protein_type}**')
+        else:
+            st.error("DNA sequence must be at least 6 bases long.")
     else:
-        st.error("DNA sequence must be at least 6 bases long.")
+        st.error("Invalid input! DNA sequence must only contain the characters A, T, G, C.")
 
 # Footer with custom styling
 st.markdown("""
