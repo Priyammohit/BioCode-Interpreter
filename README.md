@@ -117,3 +117,7 @@ Contributions are welcome! If you have suggestions for improvements or bug fixes
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Made by 
+   Aman Kumar
+   Mohit Raj
+
