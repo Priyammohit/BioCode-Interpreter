@@ -4,7 +4,7 @@
 
 This project focuses on the classification of DNA sequences from human, chimpanzee, and dog datasets using advanced machine learning techniques. The primary goal was to accurately categorize the DNA sequences into seven distinct classes, utilizing Python and popular data science libraries. The implemented model achieved outstanding performance, demonstrating a high level of accuracy, precision, recall, and F1 score.
 
-###Deployment
+### Deployment
 
 The project has been deployed at https://biocode-interpreter.streamlit.app/.
 
