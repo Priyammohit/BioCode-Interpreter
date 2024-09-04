@@ -40,16 +40,6 @@ The project has been deployed at https://biocode-interpreter.streamlit.app/.
 
 The dataset used for this project contains DNA sequences from three species: humans, chimpanzees, and dogs. The sequences are labeled into seven different classes based on their characteristics. Each sample is represented by a series of features extracted from the DNA sequences.
 
-### Classes:
-
-1. **Class 0**: Human DNA
-2. **Class 1**: Chimpanzee DNA
-3. **Class 2**: Dog DNA
-4. **Class 3**: [Provide specific descriptions for each class if available]
-5. **Class 4**: [Provide specific descriptions for each class if available]
-6. **Class 5**: [Provide specific descriptions for each class if available]
-7. **Class 6**: [Provide specific descriptions for each class if available]
-
 ## Model Performance
 
 The model was evaluated using several metrics, and the results were highly satisfactory:
